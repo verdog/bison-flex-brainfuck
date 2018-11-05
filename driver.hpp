@@ -13,7 +13,7 @@ YY_DECL;
 
 class Driver {
     public:
-        Driver ();
+        Driver();
 
         // Run the parser on file F.  Return 0 on success.
         int parse (const std::string& f);

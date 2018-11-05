@@ -17,7 +17,11 @@ BFMC::BrainFuckMemoryCell()
 }
 
 BFMC::~BrainFuckMemoryCell() {
-    std::cout << "Destroyed a cell.\n";
+    if (cell_right != nullptr) {
+        delete cell_right;
+    }
+
+    // std::cout << "Destroyed a cell.\n";
 }
 
 /********************
@@ -30,6 +34,16 @@ BrainFuckMemory::BrainFuckMemory()
 , usage {1}
 {
 
+}
+
+BrainFuckMemory::~BrainFuckMemory() {
+    // cell delete from left to right.
+    // start at leftmost cell.
+    while (cell_current->cell_left != nullptr) {
+        cell_current = cell_current->cell_left;
+    }
+
+    delete cell_current;
 }
 
 unsigned char BrainFuckMemory::get_current_value() {

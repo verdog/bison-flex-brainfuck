@@ -18,6 +18,7 @@ class BrainFuckMemoryCell {
 class BrainFuckMemory {
     public:
         BrainFuckMemory();
+        ~BrainFuckMemory();
 
         void set_current_value(unsigned char val);
         unsigned char get_current_value();
