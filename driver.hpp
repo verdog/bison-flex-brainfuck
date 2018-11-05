@@ -2,7 +2,7 @@
 # define DRIVER_HH
 # include <string>
 # include <map>
-# include "parser.hh"
+# include "parser.hpp"
 
 // Give Flex the prototype of yylex we want ...
 # define YY_DECL \

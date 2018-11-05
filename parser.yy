@@ -17,7 +17,7 @@
 %define parse.error verbose
 
 %code {
-#include "driver.hh"
+#include "driver.hpp"
 }
 
 %define api.token.prefix {TOK_}

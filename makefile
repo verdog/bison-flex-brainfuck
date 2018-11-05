@@ -8,21 +8,21 @@ BIN = brainfuck
 
 all: $(BIN)
 
-%.cc %.hh: %.yy
-	$(BISON) $(BISONFLAGS) -o $*.cc $<
+%.cpp %.hpp: %.yy
+	$(BISON) $(BISONFLAGS) -o $*.cpp $<
 
-%.cc: %.ll
+%.cpp: %.ll
 	$(FLEX) $(FLEXFLAGS) -o $@ $<
 
-%.o: %.cc
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 $(BIN): $(BIN).o driver.o parser.o scanner.o
 	$(CXX) -o $@ $^
 
-$(BIN).o: parser.hh
-parser.o: parser.hh
-scanner.o: parser.hh
+$(BIN).o: parser.hpp
+parser.o: parser.hpp
+scanner.o: parser.hpp
 
 clean:
-	rm -f $(BIN) *.o parser.hh parser.cc scanner.cc
+	rm -f $(BIN) *.o parser.hpp parser.cpp scanner.cpp

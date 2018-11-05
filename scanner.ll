@@ -1,7 +1,7 @@
 %{ /* -*- C++ -*- */
 #include <string>
-#include "driver.hh"
-#include "parser.hh"
+#include "driver.hpp"
+#include "parser.hpp"
 %}
 
 %option noyywrap

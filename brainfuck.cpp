@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "driver.hh"
+#include "driver.hpp"
 
 int main (int argc, char *argv[]) {
     Driver drv;

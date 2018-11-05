@@ -1,5 +1,5 @@
-#include "driver.hh"
-#include "parser.hh"
+#include "driver.hpp"
+#include "parser.hpp"
 
 Driver::Driver()
 : trace_parsing (false)
