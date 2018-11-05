@@ -20,14 +20,6 @@ BFMC::~BrainFuckMemoryCell() {
     std::cout << "Destroyed a cell.\n";
 }
 
-unsigned char BFMC::get_value() {
-    return value;
-}
-
-void BFMC::set_value(unsigned char val) {
-    value = val;
-}
-
 /********************
  * Brainfuck memory *
  ********************/
@@ -40,11 +32,19 @@ BrainFuckMemory::BrainFuckMemory()
 }
 
 unsigned char BrainFuckMemory::get_current_value() {
-    return cell_current->get_value();
+    return cell_current->value;
 }
 
 void BrainFuckMemory::set_current_value(unsigned char val) {
-    cell_current->set_value(val);
+    cell_current->value = val;
+}
+
+void BFMC::increment() {
+    value++;
+}
+
+void BFMC::decrement() {
+    value--;
 }
 
 void BrainFuckMemory::move_right() {
@@ -71,8 +71,16 @@ void BrainFuckMemory::move_left() {
     position--;
 }
 
+void BrainFuckMemory::increment_current() {
+    (*cell_current).increment();
+}
+
+void BrainFuckMemory::decrement_current() {
+    (*cell_current).decrement();
+}
+
 void BrainFuckMemory::report(std::ostream& out) {
     out << "Position: " << position << std::endl;
-    out << "Value: " << get_current_value() << std::endl;
+    out << "Value: " << (unsigned int)get_current_value() << std::endl;
     out << "Total memory usage: " << usage << std::endl;
 }

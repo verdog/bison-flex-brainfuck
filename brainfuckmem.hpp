@@ -6,8 +6,8 @@ class BrainFuckMemoryCell {
         BrainFuckMemoryCell();
         ~BrainFuckMemoryCell();
 
-        unsigned char get_value();
-        void set_value(unsigned char val);
+        void increment();
+        void decrement();
 
     private:
         std::shared_ptr<BrainFuckMemoryCell> cell_right;
@@ -19,11 +19,13 @@ class BrainFuckMemory {
     public:
         BrainFuckMemory();
 
-        unsigned char get_current_value();
         void set_current_value(unsigned char val);
+        unsigned char get_current_value();
 
         void move_right();
         void move_left();
+        void increment_current();
+        void decrement_current();
 
         void report(std::ostream& out);
 

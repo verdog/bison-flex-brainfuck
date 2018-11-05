@@ -29,18 +29,23 @@ int Driver::do_left() {
 }
 
 int Driver::do_plus() {
+    memory.increment_current();
     return 0;
 }
 
 int Driver::do_minus() {
+    memory.decrement_current();
     return 0;
 }
 
 int Driver::do_output() {
+    std::cout << memory.get_current_value();
     return 0;
 }
 
 int Driver::do_replace() {
+    unsigned char new_value = fgetc(stdin);
+    memory.set_current_value(new_value);
     return 0;
 }
 
