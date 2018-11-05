@@ -22,7 +22,7 @@ WS [ \t\n]*
 <<EOF>> return yy::parser::make_END();
 
 . {
-    throw yy::parser::syntax_error("invalid character: " + std::string(yytext));
+    // throw yy::parser::syntax_error("invalid character: " + std::string(yytext));
 }
 
 %%

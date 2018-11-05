@@ -48,28 +48,36 @@ symbols: %empty {
 
 symbol: 
   ">" {
-
+    drv.do_right();
+    drv.memory.report(std::cout);
 }
 | "<" {
-
+    drv.do_left();
+    drv.memory.report(std::cout);
 }
 | "+" {
-
+    drv.do_plus();
+    drv.memory.report(std::cout);
 }
 | "-" {
-
+    drv.do_minus();
+    drv.memory.report(std::cout);
 }
 | "." {
-
+    drv.do_output();
+    drv.memory.report(std::cout);
 }
 | "," {
-
+    drv.do_replace();
+    drv.memory.report(std::cout);
 }
 | "[" {
-
+    drv.do_openbracket();
+    drv.memory.report(std::cout);
 }
 | "]" {
-
+    drv.do_closebracket();
+    drv.memory.report(std::cout);
 }
 %%
 

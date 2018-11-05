@@ -17,7 +17,7 @@ all: $(BIN)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-$(BIN): $(BIN).o driver.o parser.o scanner.o
+$(BIN): $(BIN).o driver.o parser.o scanner.o brainfuckmem.o
 	$(CXX) -o $@ $^
 
 $(BIN).o: parser.hpp
