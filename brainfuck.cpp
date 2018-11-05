@@ -4,7 +4,7 @@
 #include "driver.hh"
 
 int main (int argc, char *argv[]) {
-    driver drv;
+    Driver drv;
     std::string file = "-";
 
     if (argc > 1) {
