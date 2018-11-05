@@ -18,41 +18,33 @@ int Driver::parse(const std::string &f) {
     return res;
 }
 
-int Driver::do_right() {
+void Driver::do_right() {
     memory.move_right();
-    return 0;
 }
 
-int Driver::do_left() {
+void Driver::do_left() {
     memory.move_left();
-    return 0;
 }
 
-int Driver::do_plus() {
+void Driver::do_plus() {
     memory.increment_current();
-    return 0;
 }
 
-int Driver::do_minus() {
+void Driver::do_minus() {
     memory.decrement_current();
-    return 0;
 }
 
-int Driver::do_output() {
+void Driver::do_output() {
     std::cout << memory.get_current_value();
-    return 0;
 }
 
-int Driver::do_replace() {
+void Driver::do_replace() {
     unsigned char new_value = fgetc(stdin);
     memory.set_current_value(new_value);
-    return 0;
 }
 
-int Driver::do_openbracket() {
-    return 0;
+void Driver::do_openbracket() {
 }
 
-int Driver::do_closebracket() {
-    return 0;
+void Driver::do_closebracket() {
 }

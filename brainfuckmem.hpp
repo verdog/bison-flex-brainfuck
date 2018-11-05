@@ -10,8 +10,8 @@ class BrainFuckMemoryCell {
         void decrement();
 
     private:
-        std::shared_ptr<BrainFuckMemoryCell> cell_right;
-        std::shared_ptr<BrainFuckMemoryCell> cell_left;
+        BrainFuckMemoryCell *cell_right;
+        BrainFuckMemoryCell *cell_left;
         unsigned char value;
 };
 
@@ -30,7 +30,7 @@ class BrainFuckMemory {
         void report(std::ostream& out);
 
     private:
-        std::shared_ptr<BrainFuckMemoryCell> cell_current;
+        BrainFuckMemoryCell *cell_current;
 
         int position;
         unsigned int usage;

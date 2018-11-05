@@ -27,6 +27,7 @@ BFMC::~BrainFuckMemoryCell() {
 BrainFuckMemory::BrainFuckMemory() 
 : cell_current (new BrainFuckMemoryCell)
 , position {0}
+, usage {1}
 {
 
 }
@@ -49,7 +50,7 @@ void BFMC::decrement() {
 
 void BrainFuckMemory::move_right() {
     if (cell_current->cell_right == nullptr) {
-        cell_current->cell_right = std::shared_ptr<BrainFuckMemoryCell>(new BrainFuckMemoryCell);
+        cell_current->cell_right = new BrainFuckMemoryCell;
         cell_current->cell_right->cell_left = cell_current;
         usage++;
     }
@@ -61,7 +62,7 @@ void BrainFuckMemory::move_right() {
 
 void BrainFuckMemory::move_left() {
     if (cell_current->cell_left == nullptr) {
-        cell_current->cell_left = std::shared_ptr<BrainFuckMemoryCell>(new BrainFuckMemoryCell);
+        cell_current->cell_left = new BrainFuckMemoryCell;
         cell_current->cell_left->cell_right = cell_current;
         usage++;
     }

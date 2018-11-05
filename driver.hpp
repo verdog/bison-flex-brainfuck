@@ -30,14 +30,14 @@ class Driver {
         // Whether to generate parser debug traces.
         bool trace_parsing;
 
-        int do_right(); // process a ">". return 0 on success.
-        int do_left(); // process a "<". return 0 on success.
-        int do_plus(); // process a "+". return 0 on success.
-        int do_minus(); // process a "-". return 0 on success.
-        int do_output(); // process a ".". return 0 on success.
-        int do_replace(); // process a ",". return 0 on success.
-        int do_openbracket(); // process a "[". return 0 on success.
-        int do_closebracket(); // process a "]". return 0 on success.
+        void do_right(); // process a ">". return 0 on success.
+        void do_left(); // process a "<". return 0 on success.
+        void do_plus(); // process a "+". return 0 on success.
+        void do_minus(); // process a "-". return 0 on success.
+        void do_output(); // process a ".". return 0 on success.
+        void do_replace(); // process a ",". return 0 on success.
+        void do_openbracket(); // process a "[". return 0 on success.
+        void do_closebracket(); // process a "]". return 0 on success.
 
         BrainFuckMemory memory;
 };
