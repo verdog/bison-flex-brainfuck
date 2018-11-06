@@ -35,54 +35,44 @@
 
 %%
 %start program;
-program: symbols {
-    //
+program: expression_list {
 }
 
-symbols: symbol {
-    //
-} 
-| symbols symbol {
-    //
+expression_list: expression_list expression {
+}
+| expression {
+}
+
+expression: symbol {
+}
+| "[" expression_list "]" {
+}
+| %empty {
 }
 
 symbol: 
   ">" {
     drv.do_right();
-    drv.memory.report(std::cout);
 }
 | "<" {
     drv.do_left();
-    drv.memory.report(std::cout);
 }
 | "+" {
     drv.do_plus();
-    drv.memory.report(std::cout);
+    drv.memory.report();
 }
 | "-" {
     drv.do_minus();
-    drv.memory.report(std::cout);
+    drv.memory.report();
 }
 | "." {
     drv.do_output();
-    drv.memory.report(std::cout);
 }
 | "," {
     drv.do_replace();
-    drv.memory.report(std::cout);
-}
-| "[" {
-    drv.do_openbracket();
-    drv.memory.report(std::cout);
-}
-| "]" {
-    drv.do_closebracket();
-    drv.memory.report(std::cout);
 }
 %%
 
-void
-yy::parser::error (const std::string& m)
-{
-  std::cerr << m << '\n';
+void yy::parser::error (const std::string& m) {
+    std::cerr << m << '\n';
 }

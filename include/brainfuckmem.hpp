@@ -28,7 +28,7 @@ class BrainFuckMemory {
         void increment_current();
         void decrement_current();
 
-        void report(std::ostream& out);
+        void report(std::ostream& out = std::cout);
 
     private:
         BrainFuckMemoryCell *cell_current;
