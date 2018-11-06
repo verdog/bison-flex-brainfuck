@@ -39,7 +39,7 @@ program: symbols {
     //
 }
 
-symbols: %empty {
+symbols: symbol {
     //
 } 
 | symbols symbol {

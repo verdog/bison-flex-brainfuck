@@ -1,9 +1,10 @@
-# This Makefile is designed to be simple and readable.  It does not
-# aim at portability.  It requires GNU Make.
-
 BISON = bison
 CXX = g++
 FLEX = flex
+
+OBJDIR = ./obj/
+OBJ = $(addprefix $(OBJDIR), parser.o scanner.o brainfuckmem.o driver.o $(BIN).o)
+
 BIN = brainfuck
 
 all: $(BIN)
@@ -14,15 +15,18 @@ all: $(BIN)
 %.cpp: %.ll
 	$(FLEX) $(FLEXFLAGS) -o $@ $<
 
-%.o: %.cpp
+$(OBJDIR)%.o: %.cpp
+	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-$(BIN): $(BIN).o driver.o parser.o scanner.o brainfuckmem.o
+$(BIN): $(OBJ)
 	$(CXX) -o $@ $^
 
 $(BIN).o: parser.hpp
+brainfuckmem.o: brainfuckmem.hpp
 parser.o: parser.hpp
 scanner.o: parser.hpp
 
 clean:
-	rm -f $(BIN) *.o parser.hpp parser.cpp scanner.cpp
+	rm -f $(BIN) parser.hpp parser.cpp scanner.cpp
+	rm -rf $(OBJDIR)
