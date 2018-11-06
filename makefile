@@ -1,6 +1,9 @@
 BISON = bison
-CXX = g++
 FLEX = flex
+CXX = g++
+CXXFLAGS = -I./include
+
+SRCDIR = ./src/
 
 OBJDIR = ./obj/
 OBJ = $(addprefix $(OBJDIR), parser.o scanner.o brainfuckmem.o driver.o $(BIN).o)
@@ -9,13 +12,14 @@ BIN = brainfuck
 
 all: $(BIN)
 
-%.cpp %.hpp: %.yy
-	$(BISON) $(BISONFLAGS) -o $*.cpp $<
+$(SRCDIR)%.cpp %.hpp: $(SRCDIR)%.yy
+	$(BISON) $(BISONFLAGS) -o $(SRCDIR)$*.cpp $<
+	mv $(SRCDIR)$*.hpp ./include/$*.hpp
 
-%.cpp: %.ll
+$(SRCDIR)%.cpp: $(SRCDIR)%.ll
 	$(FLEX) $(FLEXFLAGS) -o $@ $<
 
-$(OBJDIR)%.o: %.cpp
+$(OBJDIR)%.o: $(SRCDIR)%.cpp
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
@@ -28,5 +32,6 @@ parser.o: parser.hpp
 scanner.o: parser.hpp
 
 clean:
-	rm -f $(BIN) parser.hpp parser.cpp scanner.cpp
+	rm -f $(BIN) $(SRCDIR)parser.cpp $(SRCDIR)scanner.cpp
+	rm -f ./include/parser.hpp
 	rm -rf $(OBJDIR)
