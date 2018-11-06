@@ -18,6 +18,7 @@
 
 %code {
 #include "driver.hpp"
+#include <string>
 }
 
 %define api.token.prefix {TOK_}
@@ -34,42 +35,45 @@
 ;
 
 %%
-%start program;
 program: expression_list {
 }
 
 expression_list: expression_list expression {
+    //
 }
 | expression {
+    //
 }
 
 expression: symbol {
+    std::cout << "symbol expression.\n";
 }
 | "[" expression_list "]" {
+    //
 }
 | %empty {
+    //
 }
 
+%type <std::string> symbol;
 symbol: 
   ">" {
-    drv.do_right();
+    $$ = ">";
 }
 | "<" {
-    drv.do_left();
+    $$ = "<";
 }
 | "+" {
-    drv.do_plus();
-    drv.memory.report();
+    $$ = "+";
 }
 | "-" {
-    drv.do_minus();
-    drv.memory.report();
+    $$ = "-";
 }
 | "." {
-    drv.do_output();
+    $$ = ".";
 }
 | "," {
-    drv.do_replace();
+    $$ = ",";
 }
 %%
 
