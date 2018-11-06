@@ -11,3 +11,4 @@ make
 ./brainfuck # interpreter on stdin
 ./brainfuck - # same as above
 ./brainfuck hello.bf # interpret file
+```
