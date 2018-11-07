@@ -1,4 +1,5 @@
 BISON = bison
+BISONFLAGS = 
 FLEX = flex
 CXX = g++
 CXXFLAGS = -I./include

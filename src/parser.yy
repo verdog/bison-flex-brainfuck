@@ -13,7 +13,7 @@
 // The parsing context.
 %param { Driver& drv }
 
-%define parse.trace
+%define parse.trace true
 %define parse.error verbose
 
 %code {
@@ -39,20 +39,26 @@ program: expression_list {
 }
 
 expression_list: expression_list expression {
-    //
 }
 | expression {
-    //
-}
 
-expression: symbol {
-    std::cout << "symbol expression.\n";
-}
-| "[" expression_list "]" {
-    //
 }
 | %empty {
-    //
+    
+}
+
+expression: symbol_list {
+
+} 
+| "[" expression_list "]" {
+
+}
+
+symbol_list: symbol_list symbol {
+
+}
+| symbol {
+
 }
 
 %type <std::string> symbol;
