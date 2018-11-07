@@ -5,9 +5,10 @@ CXX = g++
 CXXFLAGS = -I./include
 
 SRCDIR = ./src/
+SRC = $(addprefix $(SRCDIR), parser.cpp scanner.cpp) $(wildcard $(SRCDIR)*.cpp)
 
 OBJDIR = ./obj/
-OBJ = $(addprefix $(OBJDIR), parser.o scanner.o brainfuckmem.o driver.o $(BIN).o)
+OBJ = $(addprefix $(OBJDIR), $(notdir $(SRC:cpp=o)))
 
 BIN = brainfuck
 
