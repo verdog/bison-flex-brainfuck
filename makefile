@@ -2,7 +2,7 @@ BISON = bison
 BISONFLAGS = 
 FLEX = flex
 CXX = g++
-CXXFLAGS = -I./include
+CXXFLAGS = -I./include -g
 
 SRCDIR = ./src/
 SRC = $(addprefix $(SRCDIR), parser.cpp scanner.cpp) $(wildcard $(SRCDIR)*.cpp)

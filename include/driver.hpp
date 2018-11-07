@@ -4,6 +4,7 @@
 #include <map>
 #include "parser.hpp"
 #include "brainfuckmem.hpp"
+#include "brainfuckprog.hpp"
 
 // Give Flex the prototype of yylex we want ...
 # define YY_DECL \
@@ -30,15 +31,13 @@ class Driver {
         // Whether to generate parser debug traces.
         bool trace_parsing;
 
-        void do_right(); // process a ">". return 0 on success.
-        void do_left(); // process a "<". return 0 on success.
-        void do_plus(); // process a "+". return 0 on success.
-        void do_minus(); // process a "-". return 0 on success.
-        void do_output(); // process a ".". return 0 on success.
-        void do_replace(); // process a ",". return 0 on success.
-        void do_openbracket(); // process a "[". return 0 on success.
-        void do_closebracket(); // process a "]". return 0 on success.
+        bf::Memory memory;
+        bf::pnode::Base *program_pointer;
+        bf::pnode::Base *last_node;
 
-        BrainFuckMemory memory;
+        std::vector<bf::pnode::OpenLoop*> loop_stack;
+
+        void add_symbol(bf::pnode::Base* node);
+        void run();
 };
 #endif // ! DRIVER_HH

@@ -4,6 +4,8 @@
 Driver::Driver()
 : trace_parsing (false)
 , trace_scanning (false)
+, program_pointer {nullptr}
+, last_node {nullptr}
 {
     //
 }
@@ -18,33 +20,44 @@ int Driver::parse(const std::string &f) {
     return res;
 }
 
-void Driver::do_right() {
-    memory.move_right();
+void Driver::add_symbol(bf::pnode::Base *node) {
+    if (last_node == nullptr) {
+        // starting a new list
+        program_pointer = node;
+        last_node = node;
+    } else {
+        // adding to the end of the list
+        last_node->next = node;
+        last_node = node;
+
+        if (program_pointer == nullptr) {
+            program_pointer = node;
+        }
+    }
+
+    if (auto open_loop = dynamic_cast<bf::pnode::OpenLoop*>(node)) {
+        // node is an open loop. add it to the stack.
+        loop_stack.push_back(open_loop);
+    } else if (auto close_loop = dynamic_cast<bf::pnode::CloseLoop*>(node)) {
+        // node is an close loop. 
+        // link it to the top open loop and pop the open loop off the stack.
+        if (loop_stack.empty()) {
+            std::cout << "Used a closing bracket before opening one!\n";
+            throw "Used a closing bracket before opening one!";
+        }
+
+        auto open_loop = loop_stack.back();
+
+        close_loop->link(open_loop);
+        open_loop->link(close_loop);
+
+        loop_stack.pop_back();
+    }
 }
 
-void Driver::do_left() {
-    memory.move_left();
-}
-
-void Driver::do_plus() {
-    memory.increment_current();
-}
-
-void Driver::do_minus() {
-    memory.decrement_current();
-}
-
-void Driver::do_output() {
-    std::cout << memory.get_current_value();
-}
-
-void Driver::do_replace() {
-    unsigned char new_value = fgetc(stdin);
-    memory.set_current_value(new_value);
-}
-
-void Driver::do_openbracket() {
-}
-
-void Driver::do_closebracket() {
+void Driver::run() {
+    while (program_pointer != nullptr && program_pointer->isReady) {
+        program_pointer->execute();
+        // memory.report();
+    }
 }

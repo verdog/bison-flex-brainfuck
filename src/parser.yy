@@ -8,6 +8,7 @@
 
 %code requires {
   class Driver;
+  #include "brainfuckprog.hpp"
 }
 
 // The parsing context.
@@ -17,8 +18,8 @@
 %define parse.error verbose
 
 %code {
-#include "driver.hpp"
 #include <string>
+#include "driver.hpp"
 }
 
 %define api.token.prefix {TOK_}
@@ -35,51 +36,44 @@
 ;
 
 %%
-program: expression_list {
-}
-
-expression_list: expression_list expression {
-}
-| expression {
-
-}
-| %empty {
-    
-}
-
-expression: symbol_list {
-
-} 
-| "[" expression_list "]" {
+program: symbol_list {
 
 }
 
 symbol_list: symbol_list symbol {
-
+    drv.add_symbol($2);
+    drv.run();
 }
 | symbol {
-
+    drv.add_symbol($1);
+    drv.run();
 }
 
-%type <std::string> symbol;
+%type <bf::pnode::Base*> symbol;
 symbol: 
   ">" {
-    $$ = ">";
+    $$ = new bf::pnode::Right(drv, drv.memory);
 }
 | "<" {
-    $$ = "<";
+    $$ = new bf::pnode::Left(drv, drv.memory);
 }
 | "+" {
-    $$ = "+";
+    $$ = new bf::pnode::Add(drv, drv.memory);
 }
 | "-" {
-    $$ = "-";
+    $$ = new bf::pnode::Subtract(drv, drv.memory);
 }
 | "." {
-    $$ = ".";
+    $$ = new bf::pnode::Output(drv, drv.memory);
 }
 | "," {
-    $$ = ",";
+    $$ = new bf::pnode::Input(drv, drv.memory);
+}
+| "[" {
+    $$ = new bf::pnode::OpenLoop(drv, drv.memory);
+}
+| "]" {
+    $$ = new bf::pnode::CloseLoop(drv, drv.memory);
 }
 %%
 

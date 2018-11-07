@@ -1,38 +1,45 @@
+#pragma once
+
 #include <memory>
+#include <iostream>
 
-class BrainFuckMemoryCell {
-    friend class BrainFuckMemory;
-    public:
-        BrainFuckMemoryCell();
-        ~BrainFuckMemoryCell();
+namespace bf {
 
-        void increment();
-        void decrement();
+    class MemoryCell {
+        friend class Memory;
+        public:
+            MemoryCell();
+            ~MemoryCell();
 
-    private:
-        BrainFuckMemoryCell *cell_right;
-        BrainFuckMemoryCell *cell_left;
-        unsigned char value;
-};
+            void increment();
+            void decrement();
 
-class BrainFuckMemory {
-    public:
-        BrainFuckMemory();
-        ~BrainFuckMemory();
+        private:
+            MemoryCell *cell_right;
+            MemoryCell *cell_left;
+            unsigned char value;
+    };
 
-        void set_current_value(unsigned char val);
-        unsigned char get_current_value();
+    class Memory {
+        public:
+            Memory();
+            ~Memory();
 
-        void move_right();
-        void move_left();
-        void increment_current();
-        void decrement_current();
+            void set_current_value(unsigned char val);
+            unsigned char get_current_value();
 
-        void report(std::ostream& out = std::cout);
+            void move_right();
+            void move_left();
+            void increment_current();
+            void decrement_current();
 
-    private:
-        BrainFuckMemoryCell *cell_current;
+            void report(std::ostream& out = std::cout);
 
-        int position;
-        unsigned int usage;
-};
+        private:
+            MemoryCell *cell_current;
+
+            int position;
+            unsigned int usage;
+    };  
+
+}
